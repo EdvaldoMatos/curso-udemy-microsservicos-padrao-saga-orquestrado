@@ -15,7 +15,7 @@ public class InventoryConsumer {
 
 	@KafkaListener(
 			groupId = "${spring.kafka.consumer.group-id}",
-			topics = "${spring.kafka.consumer.topic.inventory-success}")
+			topics = "${spring.kafka.topic.inventory-success}")
 	public void consumeSuccessEvent(String payload) {
 		log.info("Receiving success event {} from inventory-success topic", payload);
 		var event = jsonUtil.toEvent(payload);
@@ -24,7 +24,7 @@ public class InventoryConsumer {
 
 	@KafkaListener(
 			groupId = "${spring.kafka.consumer.group-id}",
-			topics = "${spring.kafka.consumer.topic.inventory-fail}")
+			topics = "${spring.kafka.topic.inventory-fail}")
 	public void consumeFailEvent(String payload) {
 		log.info("Receiving rollback event {} from inventory-fail topic", payload);
 		var event = jsonUtil.toEvent(payload);

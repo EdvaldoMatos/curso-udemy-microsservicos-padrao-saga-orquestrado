@@ -11,41 +11,42 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 @Component
 public class SagaOrchestratorConsumer {
+	public static final String EVENT_RECEIVED = "Event received: {}";
 	private final JsonUtil jsonUtil;
 
 	@KafkaListener(
 			groupId = "${spring.kafka.consumer.group-id}",
-			topics = "${spring.kafka.consumer.topic.start-saga}")
+			topics = "${spring.kafka.topic.start-saga}")
 	public void consumeStartSagaEvent(String payload) {
 		log.info("Receiving event {} from start-saga topic", payload);
 		var event = jsonUtil.toEvent(payload);
-		log.info("Event received: {}", event);
+		log.info(EVENT_RECEIVED, event);
 	}
 
 	@KafkaListener(
 			groupId = "${spring.kafka.consumer.group-id}",
-			topics = "${spring.kafka.consumer.topic.orchestrator}")
+			topics = "${spring.kafka.topic.orchestrator}")
 	public void consumeOrchestratorEvent(String payload) {
 		log.info("Receiving event {} from orchestrator topic", payload);
 		var event = jsonUtil.toEvent(payload);
-		log.info("Event received: {}", event);
+		log.info(EVENT_RECEIVED, event);
 	}
 
 	@KafkaListener(
 			groupId = "${spring.kafka.consumer.group-id}",
-			topics = "${spring.kafka.consumer.topic.finish-success}")
+			topics = "${spring.kafka.topic.finish-success}")
 	public void consumeFinishSuccessEvent(String payload) {
 		log.info("Receiving event {} from finish-success topic", payload);
 		var event = jsonUtil.toEvent(payload);
-		log.info("Event received: {}", event);
+		log.info(EVENT_RECEIVED, event);
 	}
 
 	@KafkaListener(
 			groupId = "${spring.kafka.consumer.group-id}",
-			topics = "${spring.kafka.consumer.topic.finish-fail}")
+			topics = "${spring.kafka.topic.finish-fail}")
 	public void consumeFinishFailEvent(String payload) {
 		log.info("Receiving event {} from finish-fail topic", payload);
 		var event = jsonUtil.toEvent(payload);
-		log.info("Event received: {}", event);
+		log.info(EVENT_RECEIVED, event);
 	}
 }

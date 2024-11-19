@@ -14,7 +14,7 @@ public class EventConsumer {
 
 	@KafkaListener(
 			groupId = "${spring.kafka.consumer.group-id}",
-			topics = "${spring.kafka.consumer.topic.notify-ending}")
+			topics = "${spring.kafka.topic.notify-ending}")
 	public void consumeNotifyEndingEvent(String payload) {
 		log.info("Receiving ending notification event {} from notify-ending topic", payload);
 		var event = jsonUtil.toEvent(payload);
